@@ -1725,3 +1725,20 @@ footer{view-transition-name:mt-foot}
 .zakres-pelny .zp-grupa:first-of-type{margin-top:var(--space-7)}
 .zakres-pelny .fu-row{grid-template-columns:minmax(0,17rem) minmax(0,1fr)}
 @media(max-width:820px){.zakres-pelny .fu-row{grid-template-columns:1fr}}
+
+/* --- PARALAKSA KAFLI: naprawa zamrozonej osi (21.09, K. prosil o paralakse) ---
+   `.mt-para` ma `overflow:hidden`, wiec to ON jest kontenerem przewijania dla swojego
+   <img>. Kontener sie nie przewija, wiec `animation-timeline:view()` stal zamrozony
+   na 49,99 % - zdjecie mialo stale przesuniecie -7 % i wygladalo, jakby paralaksa
+   "byla, tylko delikatna". Nie bylo jej wcale.
+   Naprawa: NAZWANA os na kontenerze - jego wlasnym kontenerem przewijania jest juz
+   dokument, wiec postep liczy sie poprawnie. (Pamiec: parallax_view_overflow_pulapka.)
+   ⛔ Ta poprawka zostaje W TYM REPO. Silnik dem jest zamrozony - nie przenosze jej tam
+   z wlasnej inicjatywy. */
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference) and (min-width:900px){
+    .mt-para{view-timeline-name:--mt-kadr}
+    .mt-para > img{animation-timeline:--mt-kadr}
+    @keyframes mtPara{from{translate:0 -5.5%}to{translate:0 5.5%}}
+  }
+}
