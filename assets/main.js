@@ -715,3 +715,19 @@
 })();
 
 
+
+/* --- hover kafli bez opoznienia (21.09) -----------------------------------
+   Wejscie sekcji robi stagger przez `--i` * `--mt-step` w `transition-delay`.
+   Problem: ta zwloka ZOSTAJE na elemencie po wejsciu, wiec najechanie reaguje
+   dopiero po 140-280 ms i wyglada jak zaciecie strony (zmierzone bramka 21.09).
+   Nie przerabiam wejscia na `animation` (to silnik, zamrozony) - zeruje `--i`
+   dokladnie wtedy, gdy wejscie sie skonczylo. Stagger zostaje, lag znika. */
+(function () {
+  var kafle = document.querySelectorAll('.tile.reveal, .gateway.reveal, .gallery .reveal');
+  Array.prototype.forEach.call(kafle, function (el) {
+    el.addEventListener('transitionend', function () {
+      el.style.setProperty('--i', '0');
+      el.classList.add('mt-settled');
+    }, { once: true });
+  });
+})();
