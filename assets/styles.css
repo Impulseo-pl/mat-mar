@@ -1551,7 +1551,7 @@ footer{view-transition-name:mt-foot}
 .hf-phone{margin-top:min(var(--space-6),2.8svh);margin-bottom:min(var(--space-5),2.2svh)}
 .hf-phone-num{font-size:min(clamp(2rem,1.5rem + 2.4vw,3.05rem),5.2svh)}
 .hf-trust{margin-top:min(var(--space-6),2.6svh);padding-top:min(var(--space-4),1.6svh)}
-.hf-trust-row{margin-top:min(var(--space-6),2.6svh)}
+.hero-fach .hf-trust{margin-top:min(var(--space-6),2.6svh)}
 
 /* Telefon: tam liczy się czytelność, nie upychanie — skalowanie wysokością wyłączone,
    bo przy 844 px wysokości ekranu svh-limity zaczęłyby zmniejszać tekst bez potrzeby. */
@@ -1676,18 +1676,21 @@ footer{view-transition-name:mt-foot}
    ⚠️ Lista filtrow MUSI miec te same funkcje w obu stanach, inaczej przejscie
    nie animuje sie, tylko przeskakuje (stad poswiata o zerowym promieniu w spoczynku). */
 .social-dymki{position:fixed;right:24px;bottom:24px;z-index:110;
-  display:flex;flex-direction:column;gap:12px}
-.social-dymki a{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;
-  background:rgba(255,255,255,.92);backdrop-filter:saturate(150%) blur(8px);
-  border:1px solid rgba(255,255,255,.55);
-  filter:drop-shadow(0 0 0 rgba(255,255,255,0)) drop-shadow(0 4px 12px rgba(12,16,20,.34));
-  transition:transform .22s var(--ease),filter .22s ease,background .22s ease}
-.social-dymki svg{width:22px;height:22px;display:block}
+  display:flex;flex-direction:column;gap:11px}
+.social-dymki a{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;
+  background:#fff;-webkit-backdrop-filter:saturate(150%) blur(8px);backdrop-filter:saturate(150%) blur(8px);
+  border:1px solid rgba(12,16,20,.10);
+  box-shadow:0 2px 6px rgba(12,16,20,.16),0 10px 24px -8px rgba(12,16,20,.34);
+  transition:transform .22s var(--ease),box-shadow .22s ease}
+.social-dymki svg{width:23px;height:23px;display:block}
 .social-dymki .s-fb svg path{fill:#1877F2}
-.social-dymki .s-gg svg path{fill:#EA4335}
-.social-dymki a:hover,.social-dymki a:focus-visible{transform:translateY(-3px) scale(1.07);
-  background:#fff;
-  filter:drop-shadow(0 0 12px rgba(255,255,255,.5)) drop-shadow(0 8px 18px rgba(12,16,20,.44))}
+
+.social-dymki a:hover{transform:translateY(-3px) scale(1.06);
+  box-shadow:0 4px 10px rgba(12,16,20,.20),0 16px 32px -10px rgba(12,16,20,.44)}
+/* fokus rysowany cieniem, nie obwodka - twarda niebieska kreska na bialym kole wyglada
+   jak usterka (zgloszenie K. 22.09). */
+.social-dymki a:focus-visible{outline:none;transform:translateY(-3px) scale(1.06);
+  box-shadow:0 0 0 3px #fff,0 0 0 5px var(--accent),0 16px 32px -10px rgba(12,16,20,.44)}
 .social-dymki a:active{transform:translateY(-1px) scale(1.02)}
 
 /* 🔴 Na telefonie dymkow w rogu NIE MA - dolny rog nalezy do przyklejonego paska
@@ -1697,10 +1700,9 @@ footer{view-transition-name:mt-foot}
 @media print{.social-dymki{display:none}}
 
 /* --- plakietka Google w hero: matowe szklo (wzor pokazany przez K. 22.09.2026) --- */
-.hf-trust-row{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin-top:var(--space-6)}
 .hero-fach .hf-trust{
-  display:inline-flex;align-items:center;gap:.5em;
-  margin:0;padding:.78em 1.4em;
+  display:inline-flex;align-items:center;flex-wrap:wrap;gap:.5em;row-gap:.3em;
+  margin:var(--space-6) 0 0;padding:.78em 1.4em;
   border-top:0;border:1px solid rgba(255,255,255,.38);border-radius:999px;
   max-width:none;width:fit-content;position:relative;overflow:hidden;isolation:isolate;
   color:#fff;font-size:.97rem;font-weight:500;letter-spacing:.005em;line-height:1.3;
@@ -1718,15 +1720,18 @@ footer{view-transition-name:mt-foot}
   background:linear-gradient(132deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,.05) 38%,
     rgba(255,255,255,0) 58%,rgba(255,255,255,.16) 100%);
 }
-.hf-trust--google{text-decoration:none;transition:background var(--t-fast),border-color var(--t-fast)}
-.hf-trust--google:hover{background:rgba(255,255,255,.20);border-color:rgba(255,255,255,.46)}
-.hf-trust--google:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.tg-link{display:inline-flex;align-items:center;gap:.5em;color:inherit;text-decoration:none;
+  border-radius:999px;transition:opacity var(--t-fast)}
+.tg-link:hover{opacity:.82}
+.tg-link:focus-visible{outline:2px solid #fff;outline-offset:4px}
+/* kreska rozdzielajaca ocene od stazu - jedna pigulka, dwie informacje (K. 22.09) */
+.tg-sep{width:1px;height:1.2em;background:rgba(255,255,255,.34);margin-inline:.35em;flex:none}
 .tg-g{flex:none}
 .tg-ocena{font-family:var(--font-display);font-weight:800;font-size:1.22rem;line-height:1;letter-spacing:-.01em}
 .tg-gwiazdki{display:inline-flex;gap:.08em;margin-right:.18em;color:#F3A52C;line-height:0}
 .tg-gwiazdki svg{filter:none}
 .tg-ile{opacity:.94}
-.hf-trust--lata{font-weight:500}
+.tg-lata{font-weight:500}
 /* ⚠️ Safari/iOS bez backdrop-filter dostaje zwykle polprzezroczyste tlo,
    zeby napis nie wisial na golym zdjeciu. */
 @supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
@@ -1734,8 +1739,9 @@ footer{view-transition-name:mt-foot}
 }
 @media(max-width:820px){
   .hero-fach .hf-trust{padding:.62em 1.1em;font-size:.9rem}
-  .tg-ile{display:none}                 /* na telefonie zostaje G + ocena + gwiazdki */
-  .hf-trust--lata{font-size:.86rem}
+  .tg-ile{display:none}                 /* na telefonie zostaje G + ocena + gwiazdki + staz */
+  .tg-sep{display:none}                 /* tresc sie zawija, wiec kreska wisialaby na koncu wiersza */
+  .tg-lata{flex-basis:100%}
 }
 
 /* --- oferta: grupy w sekcji "Co jeszcze robie" (pelny zakres z banera klienta) --- */
@@ -1791,21 +1797,55 @@ footer{view-transition-name:mt-foot}
    (silnik zamrozony - do rejestru lekcji, nie robie tego z wlasnej inicjatywy). */
 
 /* --- opinie jada tasma ("latajace opinie", polecenie K. 22.09.2026) --------------
-   Karty dublowane raz, pas przesuwa sie o dokladnie polowe swojej szerokosci.
-   Dlatego odstep siedzi w margin-right KAZDEJ karty, a nie w gap - przy gapie
-   ostatnia przerwa wypada poza polowa i tasma szarpie przy zapetleniu. */
-.opinie-tasma{position:relative;margin-top:var(--space-8);overflow:hidden;
+   Karty dublowane, pas przesuwa sie o dokladnie polowe swojej szerokosci. Dlatego
+   odstep siedzi w margin-right KAZDEJ karty, a nie w gap - przy gapie ostatnia przerwa
+   wypada poza polowa i tasma szarpie przy zapetleniu.
+   🔴 Polowa pasa MUSI byc szersza niz okno, inaczej za ostatnia karta widac pustke.
+   Stad 6 kompletow po 3 opinie (~3400 px polowa). */
+.opinie{position:relative;overflow:hidden}
+/* Poswiata pod tasma - bez niej szklo nie ma czego rozmywac i karty wygladaja jak zwykle biale pudelka. */
+.opinie::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(42rem 26rem at 10% 64%,rgba(49,82,247,.17),transparent 70%),
+    radial-gradient(38rem 24rem at 80% 44%,rgba(118,92,240,.15),transparent 70%),
+    radial-gradient(30rem 20rem at 52% 98%,rgba(70,133,247,.13),transparent 70%)}
+.opinie > *{position:relative}
+/* tasma idzie przez CALA szerokosc strony - siedzi poza .wrap, wiec nie ma marginesow */
+.opinie-tasma{margin-top:var(--space-8);overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
   mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
-.ot-pas{display:flex;width:max-content;animation:otJedzie 64s linear infinite}
-.opinie-tasma .op-card{width:clamp(17rem,26vw,22rem);margin-right:var(--space-6);flex:none}
+.ot-pas{display:flex;align-items:stretch;width:max-content;animation:otJedzie 88s linear infinite}
 .opinie-tasma:hover .ot-pas,.opinie-tasma:focus-within .ot-pas{animation-play-state:paused}
 @keyframes otJedzie{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* karty w stylu liquid glass (K. 22.09: "bardziej zaokraglone i w stylu tego liquid glass") */
+.opinie-tasma .op-card{
+  width:clamp(16.5rem,25vw,23rem);margin-right:clamp(.9rem,1.8vw,1.6rem);flex:none;
+  position:relative;isolation:isolate;
+  border-radius:28px;padding:var(--space-6) var(--space-6) var(--space-5);
+  background:rgba(255,255,255,.50);
+  -webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),
+             inset 0 -1px 0 rgba(255,255,255,.34),
+             0 20px 44px -24px rgba(18,26,58,.5)}
+/* refleks - to on robi wrazenie szkla, nie samo rozmycie */
+.opinie-tasma .op-card::before{content:"";position:absolute;inset:0;border-radius:inherit;
+  pointer-events:none;z-index:-1;
+  background:linear-gradient(138deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.10) 42%,
+    rgba(255,255,255,0) 62%,rgba(255,255,255,.32) 100%)}
+/* ⚠️ Bez backdrop-filter (starsze Safari) tlo musi byc gestsze, zeby tekst nie plywal. */
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .opinie-tasma .op-card{background:rgba(255,255,255,.86)}
+}
 @media (prefers-reduced-motion:reduce){
-  .ot-pas{animation:none;width:auto;overflow-x:auto;scroll-snap-type:x mandatory}
+  .ot-pas{animation:none;width:auto;overflow-x:auto;scroll-snap-type:x mandatory;padding-inline:var(--space-5)}
   .opinie-tasma{-webkit-mask-image:none;mask-image:none}
 }
-@media (max-width:680px){.opinie-tasma .op-card{width:16.5rem}.ot-pas{animation-duration:46s}}
+@media (max-width:680px){
+  .opinie-tasma .op-card{border-radius:22px;padding:var(--space-5)}
+  .ot-pas{animation-duration:64s}
+}
 
 /* --- sciana logotypow zakladow, dla ktorych pracowal (w miejsce wycietego paska opinii,
        decyzja K. 22.09.2026) ------------------------------------------------------------
