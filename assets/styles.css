@@ -2080,3 +2080,106 @@ h1,h2{font-weight:600}
 /* --- Oferta: awarie na samym koncu (zyczenie klienta z rozmowy) --- */
 .awarie-koniec{padding-block:0 var(--space-6)}
 .awarie-koniec .svc-row{border-top:var(--hairline)}
+
+/* --- KARTY USŁUG Z IKONAMI 3D (K. 23.09: "wszędzie paski - większa różnorodność") ---
+   Ikony z Google Flow (Nano Banana Pro), tło wyrównane do czystej bieli, więc karta
+   MUSI być biała (#fff) - na innym tle byłoby widać kwadrat ikony. Źródła: img/ikony/.
+   Komputer: 4 kolumny, dwie pierwsze karty szerokie (główne usługi klienta).
+   Telefon: poziome karty - ikona z lewej, tekst z prawej, żeby lista nie była kilometrowa. */
+.usl-karty{list-style:none;margin:var(--space-8) 0 0;padding:0;display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(.8rem,1.4vw,1.25rem)}
+.usl-karty--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.uk{display:flex}
+.uk>a{flex:1;display:flex;flex-direction:column;gap:.6rem;padding:var(--space-5) var(--space-5) var(--space-5);
+  background:#fff;border:1px solid var(--line);border-radius:22px;color:inherit;text-decoration:none;
+  box-shadow:0 12px 30px -24px rgba(18,26,58,.45);
+  transition:transform .3s var(--ease),box-shadow .3s ease,border-color .3s ease}
+.uk>a:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 40%,var(--line));
+  box-shadow:0 22px 40px -26px rgba(18,26,58,.55)}
+.uk>a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.uk-ic{width:112px;height:112px;object-fit:contain;display:block;margin:-.3rem 0 0 -.4rem;
+  transition:transform .45s var(--ease)}
+.uk>a:hover .uk-ic{transform:scale(1.06) rotate(-1.5deg)}
+.uk-tresc{display:flex;flex-direction:column;gap:.45rem;flex:1}
+.uk h3{font-size:1.12rem;line-height:1.25;margin:0;font-weight:700}
+.uk-opis{color:var(--muted);font-size:.93rem;line-height:1.55}
+.uk-cta{margin-top:auto;padding-top:.4rem;font-weight:700;font-size:.9rem;color:var(--accent-text)}
+.uk-cta .arr{display:inline-block;transition:transform .2s ease}
+.uk>a:hover .uk-cta .arr{transform:translateX(4px)}
+/* dwie główne usługi: karta na dwie kolumny, ikona z lewej i większa */
+.uk--duza{grid-column:span 2}
+.uk--duza>a{flex-direction:row;align-items:center;gap:var(--space-5);
+  background:linear-gradient(135deg,#fff 55%,color-mix(in srgb,var(--accent) 7%,#fff))}
+.uk--duza .uk-ic{width:150px;height:150px;flex:none;margin:0}
+.uk--duza h3{font-size:1.35rem}
+@media (max-width:1000px){
+  .usl-karty,.usl-karty--3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .uk--duza{grid-column:span 2}
+}
+@media (max-width:640px){
+  .usl-karty,.usl-karty--3{grid-template-columns:1fr;gap:.7rem}
+  .uk--duza{grid-column:auto}
+  .uk>a,.uk--duza>a{flex-direction:row;align-items:flex-start;gap:.9rem;padding:.9rem 1rem .9rem .75rem;border-radius:18px}
+  .uk-ic,.uk--duza .uk-ic{width:76px;height:76px;margin:0;flex:none}
+  .uk h3,.uk--duza h3{font-size:1.02rem}
+  .uk-opis{font-size:.88rem;line-height:1.5}
+  .uk-cta{padding-top:.1rem;font-size:.85rem}
+}
+/* Realizacje: etykieta kategorii pod podpisem byla 10,5 px na telefonie - za mala */
+.gallery-masonry .m-tile .cap small{font-size:.72rem;letter-spacing:.06em}
+
+/* ===== RUNDA 3c — przegląd całości tel + PC (23.09 wieczór) ===== */
+.nw{white-space:nowrap}
+/* Oferta "Co jeszcze robię": dwie kreski z pustym pasem pod każdą grupą */
+.zakres-pelny .fu-list{margin-top:0}
+.zakres-pelny .fu-row:first-child{border-top:0}
+.awarie-koniec .svc-row{border-top:0}
+/* grubości: h3, karty, wiersze i stopka nie mogą być cięższe od nagłówków sekcji (600) */
+h3,.uk h3,.fu-name{font-weight:600}
+.foot-brand .name{font-weight:700;letter-spacing:0}
+.fu-name{line-height:1.25}
+/* nadtytuł przyklejony do nagłówka w hero podstron, CTA i bloku filmów */
+.pagehead .eyebrow,.cta .eyebrow,.real-filmy .eyebrow{margin-bottom:var(--space-4)}
+/* wyśrodkowany nadtytuł: kreska z obu stron, inaczej napis stoi optycznie w prawo */
+.head.center .eyebrow::after{content:"";width:28px;height:1px;background:var(--accent);display:inline-block;flex:none;margin-top:.62em}
+/* za duże dziury: stopklatka miała własny margines doklejony do paddingu sekcji */
+.stopklatka{margin:0}
+.opinie-tasma{padding-bottom:var(--space-7)}
+.opinie + .odznaki{padding-top:var(--space-6)}
+/* CTA: przyciski równej szerokości */
+.cta-actions{align-items:stretch}
+.cta-actions .btn{justify-content:center}
+/* Realizacje */
+.real-filmy .btn{flex:none;white-space:nowrap}
+.gallery-masonry .m-tile .cap{background:linear-gradient(transparent 0,rgba(18,24,28,.62) 45%,rgba(18,24,28,.92));
+  text-shadow:0 1px 3px rgba(0,0,0,.6);padding-top:var(--space-7)}
+.klienci-karty li:last-child:nth-child(odd){grid-column:1/-1}
+/* karty z ikonami: ikona mnożona z tłem - znika ewentualny prostokąt cienia */
+.uk-ic{mix-blend-mode:multiply}
+.uk--duza>a{align-items:flex-start}
+@media (min-width:1001px){.uk:not(.uk--duza) h3{min-height:2.5em}}
+/* plakietka pod mapą na telefonie: jest miejsce na liczbę opinii */
+@media (max-width:820px){.mapa-plakietka .tg-ile{display:inline}}
+
+@media (max-width:560px){
+  /* hero: numer już jest duży nad przyciskami i w pasku na dole - trzeci raz zbędny */
+  .hero-fach .hf-ghost{display:none}
+  .hero-fach .hf-actions .btn{width:100%;justify-content:center}
+  /* pasek haseł pod hero: jedno pod drugim, bez wiszących kropek */
+  .fp-row{flex-direction:column;align-items:center;text-align:center;gap:.35rem}
+  .fp-row li:not(:last-child)::after,.fp-row li::before{display:none}
+  /* galeria jego zdjęć: 2 kolumny zamiast kilometra pojedynczych pionów */
+  .gallery-masonry{column-count:2;column-gap:.6rem}
+  .gallery-masonry .m-tile{margin-bottom:.6rem}
+  .gallery-masonry .m-tile .cap{padding:var(--space-6) .6rem .6rem;font-size:.8rem;line-height:1.3}
+  .cta-actions .btn{width:100%}
+}
+/* opinie na telefonie: bez jazdy (nie da się doczytać 9 linijek w ruchu) - przewijanie palcem */
+@media (max-width:680px){
+  .opinie-tasma{-webkit-mask-image:none;mask-image:none;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding-inline:var(--space-4);scrollbar-width:none}
+  .opinie-tasma::-webkit-scrollbar{display:none}
+  .ot-pas{animation:none;width:max-content}
+  .ot-pas .op-card:nth-child(n+4){display:none}
+  .opinie-tasma .op-card{width:82vw;scroll-snap-align:center}
+}
