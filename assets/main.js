@@ -215,7 +215,14 @@
     // h1 pierwszego ekranu (hero) — jedyny ruch, jaki hero dostaje
     var h1 = document.querySelector('section h1, header h1, .hero h1, .hero-cine h1');
     if (h1 && !splitLines(h1)) { h1.classList.add('mt-fade'); }
-    if (h1) { requestAnimationFrame(function () { h1.classList.add('mt-in'); }); }
+    if (h1) {
+      var wjedz = function () { requestAnimationFrame(function () { h1.classList.add('mt-in'); }); };
+      // przy wejsciu z logo naglowek wjezdza dopiero PO zejsciu kurtyny (inaczej gra pod nia)
+      if (document.documentElement.classList.contains('intro-on')) {
+        window.addEventListener('wejscie:koniec', wjedz, { once: true });
+        setTimeout(wjedz, 3500);
+      } else { wjedz(); }
+    }
 
     // nagłówki sekcji — wchodzą, gdy sekcja pojawia się w oknie
     var heads = all('.head h2').filter(function (h) { return !firstScreen(h); });

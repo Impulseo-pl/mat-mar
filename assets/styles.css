@@ -908,9 +908,10 @@ main{display:block}
 @media(min-width:681px){
 .nav .nav-inner{position:relative;height:64px}
 .nav .nav-links{flex:1;justify-content:center;gap:clamp(1rem,2.2vw,1.9rem);padding-right:15.5rem}
-.nav .nav-links a.btn-accent{position:absolute;right:0;top:50%;transform:translateY(-50%);margin:0}
+/* centrowanie marginesem, nie transform: hover na bialym pasku zdejmowal transform i przycisk zjezdzal w dol (23.09) */
+.nav .nav-links a.btn-accent{position:absolute;right:0;top:0;bottom:0;height:fit-content;margin:auto 0;transform:none}
 .nav:not(.nav-solid) .nav-links a.btn-accent{background:transparent;border-color:rgba(245,241,234,.55);color:#f5f1ea}
-.nav:not(.nav-solid) .nav-links a.btn-accent:hover{background:var(--accent);border-color:var(--accent);color:#14171c;transform:translateY(-50%)}
+.nav:not(.nav-solid) .nav-links a.btn-accent:hover{background:var(--accent);border-color:var(--accent);color:#14171c;transform:none}
 }
 @media(max-width:680px){
 .nav .nav-links:not(.open){transform:translateY(-160%);visibility:hidden}
@@ -1678,8 +1679,9 @@ footer{view-transition-name:mt-foot}
 .social-dymki{position:fixed;right:24px;bottom:24px;z-index:110;
   display:flex;flex-direction:column;gap:11px}
 .social-dymki a{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;
-  background:#fff;-webkit-backdrop-filter:saturate(150%) blur(8px);backdrop-filter:saturate(150%) blur(8px);
-  border:1px solid rgba(12,16,20,.10);
+  position:relative;isolation:isolate;overflow:hidden;
+  background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);
+  border:1px solid rgba(255,255,255,.55);
   box-shadow:0 2px 6px rgba(12,16,20,.16),0 10px 24px -8px rgba(12,16,20,.34);
   transition:transform .22s var(--ease),box-shadow .22s ease}
 .social-dymki svg{width:23px;height:23px;display:block}
@@ -1870,3 +1872,211 @@ footer{view-transition-name:mt-foot}
   .ks-row img{height:28px}.ks-row .ks-wysoki img{height:32px}.ks-row .ks-niski img{height:20px}
   .ks-lead{font-size:.74rem;letter-spacing:.12em}
 }
+
+
+/* ===== RUNDA 3 (K. 23.09.2026 wieczor) ===== */
+
+/* --- dymki social: matowe szklo zamiast bialego kola (wybor K. 23.09) ---
+   Szary kwadrat za G: Chrome rysowal prostokatne rozmycie tla przy animacji transform.
+   Leczy to overflow:hidden + isolation na samym kole (dodane wyzej) i refleks w ::before. */
+.social-dymki a::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  background:linear-gradient(135deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.08) 45%,rgba(255,255,255,0) 60%,rgba(255,255,255,.22) 100%)}
+.social-dymki a{box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 8px 22px -10px rgba(12,16,20,.42)}
+.social-dymki a:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 14px 30px -12px rgba(12,16,20,.5)}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .social-dymki a{background:rgba(255,255,255,.82)}
+}
+
+/* --- sciana logotypow: rowne kolumny + wielkosc optyczna ---
+   Byl flex z rownym ODSTEPEM, ale logotypy maja rozna szerokosc, wiec srodki staly
+   nierowno (354/357/271 px) i male Fh zostawialo prawa strone pusta (zgloszenie K.).
+   Teraz 4 rowne kolumny i wysokosc dobrana tak, zeby kazdy znak mial podobna "mase". */
+.ks-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-5) var(--space-4);
+  max-width:60rem;margin-inline:auto;justify-items:center}
+.ks-row img{max-width:100%}
+.ks-row li:nth-child(1) img{height:42px}   /* Hirschvogel 3,1:1 */
+.ks-row li:nth-child(2) img{height:33px}   /* Air Products 4,6:1 - gruby krój, wiec nizej */
+.ks-row li:nth-child(3) img{height:38px}   /* LP Bros 3,5:1 */
+.ks-row li:nth-child(4) img{height:56px}   /* Fitness Home 1,6:1 - waski, wiec wyzej */
+@media (max-width:680px){
+  .ks-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-5) var(--space-4)}
+  .ks-row li:nth-child(1) img{height:32px}.ks-row li:nth-child(2) img{height:25px}
+  .ks-row li:nth-child(3) img{height:29px}.ks-row li:nth-child(4) img{height:42px}
+}
+
+/* --- stopklatka: prawdziwa paralaksa (K. 23.09 "tu wrzuc paralakse") ---
+   Stary mechanizm (tlo position:fixed + clip-path) w praktyce stal nieruchomo.
+   Teraz zdjecie jest wyzsze od okna i jedzie wolniej niz strona - os nazwana na sekcji,
+   bo .stopklatka ma overflow:hidden (pulapka: parallax_view_overflow_pulapka). */
+.stopklatka{clip-path:none}
+.stopklatka .stk-bg{position:absolute;left:0;right:0;top:-14%;width:100%;height:128%;inset-inline:0;
+  object-fit:cover;object-position:50% 40%;display:block;will-change:translate}
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+    .stopklatka{view-timeline-name:--stk}
+    .stopklatka .stk-bg{animation:stkPara linear both;animation-timeline:--stk;animation-range:cover 0% cover 100%}
+    @keyframes stkPara{from{translate:0 -10%}to{translate:0 10%}}
+  }
+}
+
+/* --- galeria na glownej: wyzsze kafle, zeby kadr pokazywal, CO jest na zdjeciu --- */
+.gallery{grid-auto-rows:clamp(210px,21vw,290px)}
+
+/* --- opinie: miekki dol sekcji ---
+   Karty mialy uciety cien (tasma overflow:hidden konczyla sie rowno z kartami),
+   a poswiata w tle urywala sie twarda krawedzia na dole sekcji. */
+.opinie-tasma{padding-block:var(--space-4) var(--space-9)}
+.opinie::before{
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 70%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 70%,transparent 100%)}
+
+/* --- plakietka Google na mapie (K. 23.09 "tu dodaj to") - ciemne szklo, bo mapa jest jasna --- */
+.obszar-mapa{position:relative}
+.mapa-plakietka{
+  position:absolute;left:50%;bottom:48px;translate:-50% 0;z-index:2;
+  display:inline-flex;align-items:center;gap:.5em;white-space:nowrap;
+  padding:.72em 1.35em;border-radius:999px;overflow:hidden;isolation:isolate;
+  color:#fff;font-size:.95rem;font-weight:500;line-height:1.3;
+  text-shadow:0 1px 2px rgba(0,0,0,.35);
+  background:rgba(20,24,32,.52);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);
+  border:1px solid rgba(255,255,255,.38);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 16px 36px -18px rgba(0,0,0,.6)}
+.mapa-plakietka::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  background:linear-gradient(132deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.04) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.12) 100%)}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .mapa-plakietka{background:rgba(20,24,32,.82)}
+}
+/* telefon: mapa waska - plakietka schodzi pod mape, zeby niczego nie zaslaniac */
+@media (max-width:820px){
+  .mapa-plakietka{position:static;translate:none;display:flex;flex-wrap:wrap;justify-content:center;
+    white-space:normal;width:fit-content;max-width:100%;margin:var(--space-4) auto 0;font-size:.9rem;
+    background:rgba(20,24,32,.9)}
+  .obszar-mapa{display:flex;flex-direction:column-reverse}
+}
+
+/* --- realizacje: "Dla kogo pracowalem" - kolorowe loga z linkami zamiast pigulek (K. 23.09) ---
+   Link = zwykly odnosnik do strony firmy (rel nofollow). Loga to swiadomy wyjatek K. z 22.09
+   (DO-POTWIERDZENIA poz. 10). Weber bez logo i bez linku - nie wiadomo, ktora to firma. */
+.klienci-karty{list-style:none;margin:var(--space-6) auto 0;padding:0;max-width:66rem;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--space-4)}
+.klienci-karty li{display:flex}
+.klienci-karty a,.klienci-karty .kl-tekst{flex:1}
+.klienci-karty a,.klienci-karty li.kl-tekst{display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  gap:var(--space-4);padding:var(--space-6) var(--space-4) var(--space-5);border-radius:20px;
+  background:#fff;border:1px solid var(--line);box-shadow:0 10px 26px -20px rgba(18,26,58,.45);
+  color:var(--ink-soft);text-decoration:none;text-align:center;
+  transition:transform .25s var(--ease),box-shadow .25s ease,border-color .25s ease}
+.klienci-karty a:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 45%,var(--line));
+  box-shadow:0 18px 36px -22px rgba(18,26,58,.55)}
+.klienci-karty a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.kl-logo{height:64px;display:flex;align-items:center;justify-content:center;width:100%}
+.kl-logo img{display:block;max-width:100%;height:40px;width:auto;object-fit:contain}
+.kl-wysoki .kl-logo img{height:46px}
+.kl-szeroki .kl-logo img{height:32px}
+.kl-waski .kl-logo img{height:58px}
+.kl-slowo{font-family:var(--font-display);font-weight:800;font-size:1.7rem;letter-spacing:-.01em;color:var(--ink)}
+.kl-nazwa{font-size:.8rem;font-weight:600;letter-spacing:.02em;line-height:1.35;color:var(--muted)}
+.klienci-karty a .kl-nazwa::after{content:" ↗";color:var(--accent)}
+@media (max-width:900px){.klienci-karty{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.klienci-karty{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kl-logo{height:52px}.kl-logo img{height:32px}.kl-wysoki .kl-logo img{height:36px}
+  .kl-szeroki .kl-logo img{height:26px}.kl-waski .kl-logo img{height:46px}}
+
+/* --- O nas: zdjecie klienta w pionie (jego fotki sa z telefonu - pion pokazuje cala robote) --- */
+.split-art--pion{aspect-ratio:4/5;max-height:38rem;justify-self:center;width:min(100%,30rem)}
+.split-art--pion img{object-position:50% 28%}
+
+/* --- O nas "Czym to poparte": ikony + rowne kolumny ---
+   Kolumna "Zobacz" byla auto - byla tylko w jednym wierszu, wiec opis tego wiersza
+   startowal w innym miejscu niz reszta (zgloszenie K. 23.09). Teraz stala szerokosc. */
+.fu-list--dowody .fu-row{grid-template-columns:minmax(15rem,1.1fr) 2fr 6.5rem}
+.fu-list--dowody .fu-cta{justify-self:end}
+.fu-list--dowody .fu-name{display:flex;align-items:center;gap:.9rem}
+.fu-ic{flex:none;width:44px;height:44px;padding:9px;border-radius:12px;color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.fu-ic--img{padding:4px;object-fit:contain;background:color-mix(in srgb,var(--accent) 6%,transparent)}
+@media(max-width:760px){.fu-list--dowody .fu-row{grid-template-columns:1fr}.fu-list--dowody .fu-cta{justify-self:start}}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   WEJŚCIE NA STRONĘ — kurtyna z logo  (skill `wejscie-na-strone`, K. 23.09.2026)
+   CO OPOWIADA: prąd. Logo (znak z błyskawicą) wychodzi z rozmycia, pod nim linią
+   w kolorze akcentu PRZEPŁYWA PRĄD z iskrą na czele, a potem jasna kurtyna schodzi
+   i odsłania ciemną rozdzielnię z hero. Logo leci do paska i po drodze zmienia się
+   z ciemnego (na papierze) na jasne (na zdjęciu) - czyta się jak JEDEN przedmiot.
+   🔴 Kurtyna JASNA, bo hero jest ciemne - ciemna na ciemnym nie odsłania niczego.
+   🔴 Najpierw leci znak, dopiero potem schodzi płyta (opóźnienie .42s) - inaczej
+      ciemne logo jedzie po ciemnym zdjęciu jak naklejka (STOLMAR/Tchórzewski).
+   ⛔ ZERO drop-shadow na logu w KAŻDYM stanie (iOS rysuje z tego biały prostokąt).
+   Bezpieczniki: display:none bez skryptu · twardy limit 3,2 s · klik/kółko/dotyk/klawisz
+   przerywa · prefers-reduced-motion pomija całość · logo musi być pobrane przed startem. */
+.wejscie{display:none}
+.intro-on .wejscie{display:block;position:fixed;inset:0;z-index:200;pointer-events:none}
+.wejscie-plyta{position:absolute;inset:0;background:var(--paper);clip-path:inset(0 0 0 0)}
+.intro-on.intro-out .wejscie-plyta{clip-path:inset(100% 0 0 0);
+  transition:clip-path .66s cubic-bezier(.66,0,.24,1) .42s}
+
+.wejscie-znak-box{position:fixed;left:50%;top:50%;z-index:201;width:var(--i-w);height:var(--i-h);
+  transform:translate(-50%,-50%)}
+.intro-on.intro-out .wejscie-znak-box{
+  transform:translate(calc(-50% + var(--i-px)),calc(-50% + var(--i-py))) scale(var(--i-zmniejsz));
+  transition:transform .74s cubic-bezier(.16,.84,.44,1)}
+
+/* TAKT 1 — logo z rozmycia do ostrości, maską w prawo (nie fade+scale) */
+.wejscie-znak{position:absolute;inset:0;display:block;
+  clip-path:inset(0 100% 0 0);transform:scale(1.045);filter:blur(14px)}
+.intro-on.intro-gra .wejscie-znak{clip-path:inset(0 0 0 0);transform:scale(1);filter:blur(0);
+  transition:clip-path .56s cubic-bezier(.16,1,.3,1),filter .56s cubic-bezier(.16,1,.3,1),
+             transform .56s cubic-bezier(.16,1,.3,1)}
+.wejscie-znak img{position:absolute;inset:0;width:100%;height:100%;max-width:none;display:block}
+/* zmiana koloru logo razem z tłem - dokładnie wtedy, gdy krawędź kurtyny mija pasek.
+   .57s policzone z krzywej płyty (wolny start): pasek = pierwsze ~7% drogi krawędzi.
+   Przy .40s logo bladło jeszcze na jasnej kurtynie (klatki 23.09). */
+.wejscie-znak .wz-jasne{opacity:0}
+.intro-on.intro-out .wejscie-znak .wz-jasne{opacity:1;transition:opacity .2s ease .57s}
+.intro-on.intro-out .wejscie-znak .wz-ciemne{opacity:0;transition:opacity .2s ease .57s}
+
+/* TAKT 2 — przepływ prądu: linia rośnie od lewej, na czele iskra. Rusza 0,16 s PO logu. */
+.wejscie-prad{position:absolute;left:0;right:0;top:calc(100% + 16px);height:2px;display:block;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 35%,transparent),var(--accent));
+  transform:scaleX(0);transform-origin:left center;border-radius:2px}
+.wejscie-prad::after{content:"";position:absolute;right:-5px;top:50%;width:10px;height:10px;margin-top:-5px;
+  border-radius:50%;background:#fff;opacity:0;
+  box-shadow:0 0 0 2px var(--accent),0 0 14px 4px color-mix(in srgb,var(--accent) 70%,transparent)}
+.intro-on.intro-gra .wejscie-prad{transform:scaleX(1);transition:transform .5s cubic-bezier(.5,0,.2,1) .16s}
+.intro-on.intro-gra .wejscie-prad::after{animation:wjIskra .5s linear .16s both}
+@keyframes wjIskra{0%{opacity:0}12%{opacity:1}85%{opacity:1}100%{opacity:0}}
+.intro-on.intro-out .wejscie-prad{opacity:0;transition:opacity .22s ease}
+
+/* logo w pasku czeka schowane (visibility - miejsce w pasku ma zostać zajęte) */
+.intro-on .nav .brand-logo{visibility:hidden}
+/* WebKit potrafi narysować rozmycie paska NAD lecącym logo - na czas wejścia bez rozmycia */
+.intro-on .nav{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+@media (prefers-reduced-motion:reduce){
+  .wejscie,.intro-on .wejscie{display:none}
+  .intro-on .nav .brand-logo{visibility:visible}
+}
+@media print{.wejscie{display:none!important}}
+
+/* --- Realizacje: jego zdjecia z telefonu (piony) w kolumnach, BEZ przycinania ---
+   W szerokich kaflach nie bylo widac, co jest na zdjeciu (K. 23.09). Stock z podpisami
+   udajacymi jego prace wylecial z tej podstrony - to strona "moje prace". */
+.gallery-masonry .m-tile{margin:0 0 var(--space-4)}
+.gallery-masonry .m-tile img{aspect-ratio:auto}
+.gallery-masonry .m-tile .cap{font-weight:600}
+.real-filmy{margin-top:var(--space-8);display:flex;align-items:center;justify-content:space-between;gap:var(--space-6);
+  padding:var(--space-6) var(--space-7);border-radius:24px;background:var(--ink);color:#fff}
+.real-filmy h3{color:#fff;font-size:1.35rem;margin:.3rem 0 .4rem}
+.real-filmy .muted{color:rgba(255,255,255,.72);margin:0}
+.real-filmy .eyebrow{color:color-mix(in srgb,var(--accent) 55%,#fff)}
+@media(max-width:760px){.real-filmy{flex-direction:column;align-items:flex-start;padding:var(--space-6)}}
+
+/* --- lzejsze naglowki (K. 23.09: "zmniejsz grubosc tych tekstow") ---
+   Hero bylo 800, sekcje 700 - na duzych rozmiarach Archivo robil sie ciezki jak plakat. */
+.hf-title{font-weight:600;letter-spacing:-.015em}
+h1,h2{font-weight:600}
+.pagehead h1{font-weight:600}
+
+/* --- Oferta: awarie na samym koncu (zyczenie klienta z rozmowy) --- */
+.awarie-koniec{padding-block:0 var(--space-6)}
+.awarie-koniec .svc-row{border-top:var(--hairline)}
