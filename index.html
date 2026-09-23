@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=20260923c">
+<link rel="stylesheet" href="assets/styles.css?v=20260923d">
 <link rel="preload" as="image" href="img/logo-nav-dark.png" fetchpriority="high">
 <script>(function(){
  /* Wejscie z logo (skill wejscie-na-strone): raz na wizyte, ?intro = zagraj znowu.
@@ -122,7 +122,7 @@
 
 <main>
 <section class="hero-fach">
-  <img class="hf-photo" src="img/hero.jpg" fetchpriority="high" alt="Mat-Mar Mateusz Szymanowski - instalacje elektryczne" width="1880" height="1255">
+  <picture><source media="(max-width:700px) and (orientation:portrait)" srcset="img/hero-tel.webp" width="835" height="1346"><img class="hf-photo" src="img/hero.webp" fetchpriority="high" alt="Mat-Mar Mateusz Szymanowski - instalacje elektryczne" width="2400" height="1346"></picture>
   <div class="hf-panel">
     <div class="hf-inner">
       <span class="hf-kicker">Instalacje przemysłowe i automatyka bram</span>
@@ -139,7 +139,7 @@
 </section>
 <section class="fach-promise">
   <div class="wrap">
-    <ul class="fp-row reveal"><li>Zapytaj, wycenimy</li><li>Śląsk, opolskie, dolnośląskie</li><li>Uprawnienia SEP: eksploatacja, dozór, pomiary</li></ul>
+    <ul class="fp-row reveal"><li><span class="fp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 4.5 5.6v5.6c0 4.6 3.1 8.6 7.5 10 4.4-1.4 7.5-5.4 7.5-10V5.6L12 2.8Z"/><path d="m8.6 12.1 2.4 2.4 4.5-4.6"/></svg></span><span class="fp-txt"><b>Uprawnienia SEP</b><span>eksploatacja, dozór, pomiary</span></span></li><li><span class="fp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V7.5M21 20V7.5"/><path d="M3 9h18M3 14h18"/><path d="M7.5 9v5M12 9v5M16.5 9v5"/></svg></span><span class="fp-txt"><b>Serwis Beninca</b><span>autoryzowany: montaż i naprawa napędów</span></span></li><li><span class="fp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.2s-6.8-5.7-6.8-11.2a6.8 6.8 0 0 1 13.6 0c0 5.5-6.8 11.2-6.8 11.2Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span class="fp-txt"><b>Trzy województwa</b><span>śląskie, opolskie, dolnośląskie</span></span></li><li><span class="fp-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3.5h6v3H9z"/><path d="M15 5h2.5A1.5 1.5 0 0 1 19 6.5v13a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19.5v-13A1.5 1.5 0 0 1 6.5 5H9"/><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4"/></svg></span><span class="fp-txt"><b>Zapytaj, wycenimy</b><span>przy większej robocie przyjadę i obejrzę</span></span></li></ul>
   </div>
 </section>
 <section class="klienci-sciana" aria-label="Zakłady, dla których pracowałem">
@@ -147,7 +147,7 @@
     <p class="ks-lead reveal">Pracowałem między innymi dla tych firm</p>
     <ul class="ks-row reveal">
         <li class="ks-wysoki"><img src="img/klient-hirschvogel.svg" alt="Hirschvogel Components Poland" width="220" height="70" loading="lazy" decoding="async"></li>
-        <li><img src="img/klient-air-products.png" alt="Air Products" width="643" height="140" loading="lazy" decoding="async"></li>
+        <li><img src="img/klient-air-products.svg" alt="Air Products" width="1330" height="283" loading="lazy" decoding="async"></li>
         <li><img src="img/klient-lp-bros.png" alt="LP Bros" width="494" height="140" loading="lazy" decoding="async"></li>
         <li class="ks-wysoki"><img src="img/klient-fitness-home.png" alt="Fitness Home" width="298" height="190" loading="lazy" decoding="async"></li>
     </ul>
@@ -156,14 +156,14 @@
 <section class="gateways-band">
   <div class="wrap">
     <div class="gateways">
-      <a href="oferta.html" class="gateway reveal"><img src="img/g2.jpg" alt="Przemysłowe instalacje elektryczne" width="1600" height="1066" decoding="async"><span class="g-ttl">Instalacje przemysłowe</span></a>
-      <a href="automatyka.html" class="gateway reveal"><img src="img/a1.jpg" alt="Automatyka bramowa Beninca" width="1600" height="1200" decoding="async"><span class="g-ttl">Automatyka bramowa Beninca</span></a>
-      <a href="oferta.html" class="gateway reveal"><img src="img/g3.jpg" alt="Pomiary i kompensacja mocy biernej" width="1600" height="1066" decoding="async"><span class="g-ttl">Pomiary i kompensacja</span></a>
+      <a href="oferta.html" class="gateway reveal"><img src="img/g2.webp" alt="Przemysłowe instalacje elektryczne" width="1600" height="1089" decoding="async"><span class="g-ttl">Instalacje przemysłowe</span></a>
+      <a href="automatyka.html" class="gateway reveal"><img src="img/a1.webp" alt="Automatyka bramowa Beninca" width="1400" height="933" decoding="async"><span class="g-ttl">Automatyka bramowa Beninca</span></a>
+      <a href="oferta.html" class="gateway reveal"><img src="img/g3.webp" alt="Pomiary i kompensacja mocy biernej" width="675" height="1500" decoding="async"><span class="g-ttl">Pomiary i kompensacja</span></a>
     </div>
   </div>
 </section>
 <section class="stopklatka" aria-hidden="true">
-  <img class="stk-bg" src="img/stopklatka.jpg" srcset="img/stopklatka-1200.jpg 1200w, img/stopklatka.jpg 2400w" sizes="100vw" alt="" loading="lazy" decoding="async" width="2400" height="1597">
+  <img class="stk-bg" src="img/stopklatka.webp" srcset="img/stopklatka-1200.webp 1200w, img/stopklatka.webp 2400w" sizes="100vw" alt="" loading="lazy" decoding="async" width="2400" height="1597">
 </section>
 <section class="fach-uslugi">
   <div class="wrap">
@@ -195,11 +195,11 @@
       <p>Rozdzielnice, trasy kablowe, pomiary - stan z dnia oddania, bez upiększania.</p>
     </div>
     <div class="gallery">
-      <div class="tile t-two3 reveal"><img src="img/g4.jpg" alt="Rozdzielnica z rzędem wyłączników" loading="lazy" width="1880" height="1170" decoding="async"></div>
-      <div class="tile t-third reveal"><img src="img/g6.jpg" alt="Farma fotowoltaiczna na gruncie" loading="lazy" width="900" height="1600" style="object-position:50% 45%" decoding="async"></div>
-      <div class="tile t-third reveal"><img src="img/g1.jpg" alt="Falownik Deye wpięty w rozdzielnicę" loading="lazy" width="921" height="2048" style="object-position:50% 30%" decoding="async"></div>
-      <div class="tile t-third reveal"><img src="img/g3.jpg" alt="Pomiar rezystancji uziemienia" loading="lazy" width="921" height="2048" style="object-position:50% 62%" decoding="async"></div>
-      <div class="tile t-third reveal"><img src="img/g10.jpg" alt="Rozdzielnica podtynkowa w trakcie montażu" loading="lazy" width="719" height="1600" style="object-position:50% 25%" decoding="async"></div>
+      <div class="tile t-two3 reveal"><img src="img/g4.webp" alt="Rozdzielnica z rzędem wyłączników" loading="lazy" width="1880" height="1170" decoding="async"></div>
+      <div class="tile t-third reveal"><img src="img/g6.webp" alt="Farma fotowoltaiczna na gruncie" loading="lazy" width="844" height="1500" style="object-position:50% 45%" decoding="async"></div>
+      <div class="tile t-third reveal"><img src="img/g1.webp" alt="Falownik Deye wpięty w rozdzielnicę" loading="lazy" width="675" height="1500" style="object-position:50% 30%" decoding="async"></div>
+      <div class="tile t-third reveal"><img src="img/g3.webp" alt="Pomiar rezystancji uziemienia" loading="lazy" width="675" height="1500" style="object-position:50% 62%" decoding="async"></div>
+      <div class="tile t-third reveal"><img src="img/g10.webp" alt="Rozdzielnica podtynkowa w trakcie montażu" loading="lazy" width="674" height="1500" style="object-position:50% 25%" decoding="async"></div>
     </div>
     <div style="margin-top:var(--space-7)" class="reveal"><a href="realizacje.html" class="btn btn-accent">Pełna galeria <span class="arr">→</span></a></div>
   </div>
@@ -210,8 +210,7 @@
       <span class="eyebrow">Opinie</span>
       <h2>Co mówią klienci</h2>
     </div>
-    <p class="op-meta reveal"><svg class="ico-star" width="14" height="14" viewBox="0 0 24 24" style="vertical-align:-2px" aria-hidden="true"><path d="M12 2.8l2.85 5.8 6.4.93-4.63 4.5 1.1 6.37L12 17.4l-5.72 3 1.1-6.37-4.63-4.5 6.4-.93L12 2.8Z" fill="currentColor"/></svg> Ocena 4,9 w Google · 14 opinii</p>
-    <p class="op-meta reveal"><a class="op-google" href="https://maps.google.com/?cid=10364919480204693796" target="_blank" rel="noopener"><svg class="op-g-ico" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg><span>Zobacz opinie w Google</span><span class="arr">→</span></a></p>
+    <p class="op-plakietka-wrap reveal"><a class="op-plakietka" href="https://maps.google.com/?cid=10364919480204693796" target="_blank" rel="noopener" aria-label="Ocena 4,9 w Google na podstawie 14 opinii - zobacz opinie w Google"><svg class="tg-g" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg><b class="tg-ocena">4,9</b><span class="tg-gwiazdki" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2.8l2.85 5.8 6.4.93-4.63 4.5 1.1 6.37L12 17.4l-5.72 3 1.1-6.37-4.63-4.5 6.4-.93L12 2.8Z" fill="currentColor"/></svg><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2.8l2.85 5.8 6.4.93-4.63 4.5 1.1 6.37L12 17.4l-5.72 3 1.1-6.37-4.63-4.5 6.4-.93L12 2.8Z" fill="currentColor"/></svg><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2.8l2.85 5.8 6.4.93-4.63 4.5 1.1 6.37L12 17.4l-5.72 3 1.1-6.37-4.63-4.5 6.4-.93L12 2.8Z" fill="currentColor"/></svg><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2.8l2.85 5.8 6.4.93-4.63 4.5 1.1 6.37L12 17.4l-5.72 3 1.1-6.37-4.63-4.5 6.4-.93L12 2.8Z" fill="currentColor"/></svg><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2.8l2.85 5.8 6.4.93-4.63 4.5 1.1 6.37L12 17.4l-5.72 3 1.1-6.37-4.63-4.5 6.4-.93L12 2.8Z" fill="currentColor"/></svg></span><span class="tg-ile">14 opinii w Google</span><span class="tg-sep" aria-hidden="true"></span><span class="opp-cta">Zobacz opinie <span class="arr">→</span></span></a></p>
   </div>
   <div class="opinie-tasma reveal">
     <div class="ot-pas">
