@@ -2316,3 +2316,15 @@ h3,.uk h3,.fu-name{font-weight:600}
    Oba siedzialy w right/bottom 24px. Na komputerze rog nalezy do dymkow FB/Google,
    wiec kwadratu nie ma; na telefonie dymkow nie ma (max-width:900px), kwadrat zostaje. */
 @media (min-width:901px){.to-top{display:none}}
+
+/* --- "Dla kogo pracowalem": piec kart w JEDNYM rzedzie (K. 24.09 "wyprostowac") ---
+   Regula "ostatnia nieparzysta na cala szerokosc" byla pod telefon (2 kolumny), ale dzialala
+   wszedzie: na komputerze Weber wypadal pod spod na cala szerokosc, a w rzedzie zostawala dziura.
+   Komputer: 5 w rzedzie. Tablet: 3 + 2 wysrodkowane. Telefon: bez zmian (2+2+1 szeroka). */
+@media (min-width:901px){.klienci-karty li:last-child:nth-child(odd){grid-column:auto}}
+@media (min-width:561px) and (max-width:900px){
+  .klienci-karty{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .klienci-karty li{grid-column:span 2}
+  .klienci-karty li:nth-child(3n+1):nth-last-child(2){grid-column:2/span 2}
+  .klienci-karty li:nth-child(3n+2):last-child{grid-column:4/span 2}
+}
