@@ -1930,29 +1930,32 @@ footer{view-transition-name:mt-foot}
   -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 70%,transparent 100%);
   mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 70%,transparent 100%)}
 
-/* --- plakietka Google na mapie (K. 23.09 "tu dodaj to") - ciemne szklo, bo mapa jest jasna --- */
-.obszar-mapa{position:relative}
-.mapa-plakietka{
-  position:absolute;left:50%;bottom:48px;translate:-50% 0;z-index:2;
+/* --- plakietka Google w sekcji "Obszar dzialania" (K. 24.09: z mapy w wolne miejsce pod naglowkiem) ---
+   Tlo sekcji jest jasne, wiec jasne szklo i ciemny tekst - jak pigulka przy opiniach
+   (na zdjeciu w hero zostaje ciemna). Mapa jest teraz czysta. */
+.obszar .head{margin-bottom:var(--space-6)}
+.obszar-plakietka-wrap{text-align:center;margin:0 0 var(--space-6)}
+.obszar-plakietka{position:relative;isolation:isolate;overflow:hidden;
   display:inline-flex;align-items:center;gap:.5em;white-space:nowrap;
-  padding:.72em 1.35em;border-radius:999px;overflow:hidden;isolation:isolate;
-  color:#fff;font-size:.95rem;font-weight:500;line-height:1.3;
-  text-shadow:0 1px 2px rgba(0,0,0,.35);
-  background:rgba(20,24,32,.52);
-  -webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);
-  border:1px solid rgba(255,255,255,.38);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 16px 36px -18px rgba(0,0,0,.6)}
-.mapa-plakietka::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
-  background:linear-gradient(132deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.04) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.12) 100%)}
+  padding:.8em 1.5em;border-radius:999px;color:var(--ink);
+  font-size:1rem;font-weight:500;line-height:1.3;
+  background:rgba(255,255,255,.5);
+  -webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(26,32,46,.06),0 1px 2px rgba(26,32,46,.06),0 18px 40px -22px rgba(40,58,120,.45)}
+.obszar-plakietka::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  background:linear-gradient(132deg,rgba(255,255,255,.85) 0%,rgba(255,255,255,.2) 42%,rgba(255,255,255,0) 60%,color-mix(in srgb,var(--accent) 10%,transparent) 100%)}
+.obszar-plakietka .tg-sep{background:var(--line)}
+.obszar-plakietka .tg-ile{color:var(--ink-soft)}
+.obszar-plakietka .tg-link:focus-visible{outline-color:var(--accent)}
 @supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
-  .mapa-plakietka{background:rgba(20,24,32,.82)}
+  .obszar-plakietka{background:rgba(255,255,255,.92)}
 }
-/* telefon: mapa waska - plakietka schodzi pod mape, zeby niczego nie zaslaniac */
-@media (max-width:820px){
-  .mapa-plakietka{position:static;translate:none;display:flex;flex-wrap:wrap;justify-content:center;
-    white-space:normal;width:fit-content;max-width:100%;margin:var(--space-4) auto 0;font-size:.9rem;
-    background:rgba(20,24,32,.9)}
-  .obszar-mapa{display:flex;flex-direction:column-reverse}
+@media (max-width:820px){.obszar-plakietka .tg-ile{display:inline}}
+@media (max-width:560px){
+  .obszar-plakietka{flex-wrap:wrap;justify-content:center;white-space:normal;row-gap:.35em;font-size:.92rem;padding:.8em 1.2em;border-radius:22px}
+  .obszar-plakietka .tg-sep{display:none}
+  .obszar-plakietka .tg-lata{flex-basis:100%;text-align:center}
 }
 
 /* --- realizacje: "Dla kogo pracowalem" - kolorowe loga z linkami zamiast pigulek (K. 23.09) ---
@@ -2159,7 +2162,6 @@ h3,.uk h3,.fu-name{font-weight:600}
 .uk--duza>a{align-items:flex-start}
 @media (min-width:1001px){.uk:not(.uk--duza) h3{min-height:2.5em}}
 /* plakietka pod mapą na telefonie: jest miejsce na liczbę opinii */
-@media (max-width:820px){.mapa-plakietka .tg-ile{display:inline}}
 
 @media (max-width:560px){
   /* hero: numer już jest duży nad przyciskami i w pasku na dole - trzeci raz zbędny */
@@ -2309,3 +2311,8 @@ h3,.uk h3,.fu-name{font-weight:600}
 .gallery-masonry .m-tile img{aspect-ratio:675/1500;height:auto;object-fit:cover;object-position:50% 50%}
 @media (max-width:900px){.gallery-masonry{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.gallery-masonry{gap:.6rem}}
+
+/* --- Kwadrat "do gory" nachodzil na znak Google w rogu (K. 24.09) ---
+   Oba siedzialy w right/bottom 24px. Na komputerze rog nalezy do dymkow FB/Google,
+   wiec kwadratu nie ma; na telefonie dymkow nie ma (max-width:900px), kwadrat zostaje. */
+@media (min-width:901px){.to-top{display:none}}
