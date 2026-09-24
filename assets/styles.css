@@ -2298,3 +2298,14 @@ h3,.uk h3,.fu-name{font-weight:600}
   .op-plakietka .tg-sep{display:none}
   .opp-cta{flex-basis:100%;text-align:center}
 }
+
+/* --- Realizacje: RÓWNA SIATKA zamiast swobodnych kolumn (K. 24.09) ---
+   Kolumny (column-count) rozdzielały 6 zdjęć nierówno - na telefonie prawa kolumna
+   kończyła się dziurą, rzędy się rozjeżdżały. 5 z 6 zdjęć ma ten sam pion 675x1500,
+   więc siatka w tym kształcie niczego z nich nie tnie; farmie (g6, szersza) obcina
+   tylko boki - konstrukcja i panele zostają w kadrze. */
+.gallery-masonry{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);column-count:auto}
+.gallery-masonry .m-tile{margin:0}
+.gallery-masonry .m-tile img{aspect-ratio:675/1500;height:auto;object-fit:cover;object-position:50% 50%}
+@media (max-width:900px){.gallery-masonry{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.gallery-masonry{gap:.6rem}}
